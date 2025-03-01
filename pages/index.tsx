@@ -14,9 +14,7 @@ export default function Home() {
     setLoading(true);
 
     const res = await fetch("/api/todos");
-    // console.log(res)
     if (!res.ok) {
-      console.error("Failed to fetch todos");
       setLoading(false);
       return;
     } 
@@ -44,7 +42,6 @@ export default function Home() {
   };
 
   const deleteTodo = async (id: string) => {
-    console.log('deleteTodo', id)
     await fetch(`/api/todos?id=${id}`, { method: "DELETE" });
     fetchTodos();
   };

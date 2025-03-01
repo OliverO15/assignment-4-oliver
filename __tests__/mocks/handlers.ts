@@ -49,7 +49,6 @@ export const handlers = [
   http.delete("/api/todos", async ({ request }) => {
     const url = new URL(request.url);
     const id = url.searchParams.get("id");
-    console.log('deleteTodo', id)
     const todoIndex = mockTodos.findIndex((todo) => todo.id === id)
 
     if (todoIndex === -1) {
