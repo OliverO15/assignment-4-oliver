@@ -4,21 +4,31 @@ import type { Todo } from "../types/todo";
 export default function Home() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [newTodo, setNewTodo] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchTodos();
   }, []);
 
   const fetchTodos = async () => {
+    setLoading(true);
+
     const res = await fetch("/api/todos");
+    // console.log(res)
+    if (!res.ok) {
+      console.error("Failed to fetch todos");
+      setLoading(false);
+      return;
+    } 
+
     const data = await res.json();
     setTodos(data);
+    setLoading(false);
   };
 
   const addTodo = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newTodo.trim()) return;
-
     await fetch("/api/todos", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -34,6 +44,7 @@ export default function Home() {
   };
 
   const deleteTodo = async (id: string) => {
+    console.log('deleteTodo', id)
     await fetch(`/api/todos?id=${id}`, { method: "DELETE" });
     fetchTodos();
   };
@@ -58,6 +69,7 @@ export default function Home() {
           </button>
         </form>
 
+        {loading && <p>Loading...</p>}
         <ul className="space-y-3">
           {todos.map((todo) => (
             <li
