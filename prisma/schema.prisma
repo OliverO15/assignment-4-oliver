@@ -7,4 +7,10 @@ datasource db {
   url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
 }
+
+model Todo {
+  id        String     @id @default(uuid())
+  text      String
+  completed Boolean
+}
         
