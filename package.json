@@ -11,6 +11,8 @@
     "test:e2e": "npx playwright test"
   },
   "dependencies": {
+    "@datadog/browser-rum": "^6.6.2",
+    "@datadog/browser-rum-react": "^6.6.2",
     "@prisma/client": "^6.5.0",
     "@prisma/extension-accelerate": "^1.2.2",
     "next": "15.1.7",
